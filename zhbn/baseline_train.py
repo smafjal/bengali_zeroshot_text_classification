@@ -414,8 +414,8 @@ def fit_model(args, processor):
     if args.local_rank == -1 or args.no_cuda:
         device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
         n_gpu = torch.cuda.device_count()
-        # device = torch.device('cpu')
-        # n_gpu = 0
+        device = torch.device('cpu')
+        n_gpu = 0
     else:
         torch.cuda.set_device(args.local_rank)
         device = torch.device("cuda", args.local_rank)
@@ -453,8 +453,8 @@ def fit_model(args, processor):
     logger.info("Train File: {}".format(args.train_file))
     logger.info("Valid File: {}".format(args.valid_file))
 
-    train_limit = 100
-    test_limit = 50
+    train_limit = 500000
+    test_limit = 100000
 
     train_examples, seen_types = processor.get_train_examples(args.train_file, train_limit)
     # train_features = convert_examples_to_features(train_examples, label_list, args.max_seq_length, tokenizer)
@@ -492,7 +492,7 @@ def fit_model(args, processor):
     # load test set
     test_examples, test_label_list, test_hypo_seen_str_indicator, test_hypo_2_type_index = \
         processor.get_dev_examples(args.test_file, seen_types, test_limit)
-    
+
     # test_features = convert_examples_to_features(test_examples, label_list, args.max_seq_length, tokenizer)
     test_features = convert_examples_to_features_tk(test_examples, label_list, args.max_seq_length, tokenizer)
     test_all_input_ids = torch.tensor([f.input_ids for f in test_features], dtype=torch.long)

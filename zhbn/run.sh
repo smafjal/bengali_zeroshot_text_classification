@@ -8,10 +8,10 @@ python3 -u baseline_train.py \
   --do_train \
   --do_lower_case \
   --bert_model monsoon-nlp/muril-adapted-local \
-  --max_seq_length 128 \
-  --train_batch_size 4 \
+  --max_seq_length 224 \
+  --train_batch_size 64 \
   --learning_rate 2e-5 \
-  --num_train_epochs 1 \
+  --num_train_epochs 5 \
   --output_dir './output'
 
 #  --bert_model joeddav/xlm-roberta-large-xnli \ # prob
