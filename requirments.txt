@@ -1,0 +1,11 @@
+nltk
+numpy
+protobuf
+requests
+scikit-learn
+scipy
+sentencepiece
+tokenizers
+torch
+tqdm
+transformers
